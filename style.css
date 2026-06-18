@@ -1,46 +1,42 @@
-body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; }
-
-/* จัดการพื้นหลัง 4 สี */
-.bg-container {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    display: flex;
-    z-index: -1;
+/* ตั้งค่าพื้นฐานให้เต็มหน้าจอ */
+body, html { 
+    margin: 0; 
+    padding: 0; 
+    height: 100%; 
+    font-family: 'Helvetica Neue', Arial, sans-serif; 
 }
-.bg-container div { flex: 1; height: 100%; }
 
-.bg-blue { background-color: #1e3a8a; }
-.bg-orange { background-color: #ea580c; }
-.bg-purple { background-color: #7e22ce; }
-.bg-green { background-color: #15803d; }
-
-/* จัดการเนื้อหา */
-.content {
-    color: #f0f0f0; /* เปลี่ยนจากสีขาวจ้าเป็นเทาอ่อน */
-    font-family: 'Helvetica Neue', Arial, sans-serif; /* ใช้ฟอนต์แนว sans-serif ที่ดูคลีน */
+/* พื้นหลังแบบไล่เฉดสี (Gradient) */
+body {
+    background: linear-gradient(135deg, #1e3a8a, #ea580c, #7e22ce, #15803d);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+    color: #ffffff; /* สีตัวหนังสือ */
     text-align: center;
-    padding: 50px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* เพิ่มเงาบางๆ ให้ตัวหนังสือมีมิติ */
 }
 
-h1 {
-    font-size: 3rem;
-    font-weight: 700; /* หนาขึ้น */
-    letter-spacing: -1px; /* บีบระยะห่างหัวข้อให้ดูแน่นและทันสมัย */
-    margin-top: 50px;
-    text-transform: uppercase;
+/* เพิ่มแอนิเมชันให้สีดูขยับเบาๆ มีมิติ */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-h2 {
-    font-weight: 300; /* บางลง เพื่อตัดกับ h1 */
-    letter-spacing: 4px; /* ขยายระยะห่างตัวอักษรให้ดูโปร่ง */
-    margin-top: 40px;
-    text-transform: uppercase;
+/* จัดการเนื้อหาให้อ่านง่าย */
+.content { 
+    padding: 100px 20px; 
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3); /* เงาให้ตัวหนังสือลอยเด่น */
 }
 
-p {
-    font-weight: 300;
-    line-height: 1.6; /* เพิ่มระยะห่างระหว่างบรรทัดให้อ่านง่าย */
-    max-width: 600px;
-    margin: 0 auto;
+.nav-links { display: flex; justify-content: center; gap: 30px; margin: 20px 0; }
+.nav-links a { color: #fff; text-decoration: none; font-weight: bold; opacity: 0.8; }
+.nav-links a:hover { opacity: 1; }
+
+h1 { font-size: 3rem; font-weight: 700; letter-spacing: -1px; margin-top: 50px; text-transform: uppercase; }
+h2 { font-weight: 300; letter-spacing: 4px; margin-top: 40px; text-transform: uppercase; }
+button { 
+    margin-top: 20px; padding: 12px 24px; cursor: pointer; 
+    border: none; border-radius: 5px; font-weight: bold;
+    background: rgba(255, 255, 255, 0.2); color: white; border: 1px solid white;
 }
+button:hover { background: rgba(255, 255, 255, 0.4); }
