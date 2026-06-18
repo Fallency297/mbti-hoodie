@@ -1,28 +1,51 @@
+/* การตั้งค่าพื้นฐาน */
 body {
-    background-color: #000;
     color: #fff;
     font-family: sans-serif;
-    font-style: normal;
     text-align: center;
     padding: 50px;
+    transition: background-color 0.5s ease; /* เปลี่ยนสีแบบนุ่มนวล */
 }
 
-/* จัดการส่วนเมนูให้มาอยู่ตรงกลาง */
+/* 4 สีของแต่ละบ้าน */
+.bg-blue { background-color: #1e3a8a; }   /* น้ำเงิน */
+.bg-orange { background-color: #ea580c; } /* ส้ม */
+.bg-purple { background-color: #7e22ce; } /* ม่วง */
+.bg-green { background-color: #15803d; }  /* เขียว */
+
+/* จัดเมนู */
 .nav-links {
-    margin-top: 10px;
+    margin: 20px 0;
     display: flex;
-    justify-content: center; /* ดันให้อยู่ตรงกลาง */
-    gap: 20px;              /* ระยะห่างระหว่าง Story กับ Pre-order */
+    justify-content: center;
+    gap: 30px;
 }
 
 .nav-links a {
     color: #fff;
-    text-decoration: none;  /* เอาขีดเส้นใต้ออก */
-    font-size: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
 }
 
+/* หัวข้อและข้อความ */
 h1 {
-    color: #ccc;
-    font-size: 2.5rem;
+    font-size: 2.8rem;
+    margin-top: 50px;
+}
+
+h2 {
     margin-top: 40px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    background: #fff;
+    border: none;
+    border-radius: 5px;
 }
