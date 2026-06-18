@@ -15,8 +15,32 @@ body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; }
 .bg-green { background-color: #15803d; }
 
 /* จัดการเนื้อหา */
-.content { color: #fff; text-align: center; padding: 50px; }
-.nav-links { display: flex; justify-content: center; gap: 30px; margin: 20px 0; }
-.nav-links a { color: #fff; text-decoration: none; font-weight: bold; }
-h1 { font-size: 2.5rem; margin-top: 50px; }
-button { padding: 10px 20px; cursor: pointer; border: none; border-radius: 4px; }
+.content {
+    color: #f0f0f0; /* เปลี่ยนจากสีขาวจ้าเป็นเทาอ่อน */
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* ใช้ฟอนต์แนว sans-serif ที่ดูคลีน */
+    text-align: center;
+    padding: 50px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* เพิ่มเงาบางๆ ให้ตัวหนังสือมีมิติ */
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700; /* หนาขึ้น */
+    letter-spacing: -1px; /* บีบระยะห่างหัวข้อให้ดูแน่นและทันสมัย */
+    margin-top: 50px;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-weight: 300; /* บางลง เพื่อตัดกับ h1 */
+    letter-spacing: 4px; /* ขยายระยะห่างตัวอักษรให้ดูโปร่ง */
+    margin-top: 40px;
+    text-transform: uppercase;
+}
+
+p {
+    font-weight: 300;
+    line-height: 1.6; /* เพิ่มระยะห่างระหว่างบรรทัดให้อ่านง่าย */
+    max-width: 600px;
+    margin: 0 auto;
+}
