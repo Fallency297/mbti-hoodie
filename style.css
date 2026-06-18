@@ -2,17 +2,27 @@ body {
     background-color: #000;
     color: #fff;
     font-family: sans-serif;
+    font-style: normal;
     text-align: center;
     padding: 50px;
-    font-style: normal;
 }
 
-h1 { 
-    color: #ccc; 
+/* จัดการส่วนเมนูให้มาอยู่ตรงกลาง */
+.nav-links {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center; /* ดันให้อยู่ตรงกลาง */
+    gap: 20px;              /* ระยะห่างระหว่าง Story กับ Pre-order */
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;  /* เอาขีดเส้นใต้ออก */
+    font-size: 1rem;
+}
+
+h1 {
+    color: #ccc;
     font-size: 2.5rem;
-}
-
-h2 {
-    margin-top: 50px;
-    letter-spacing: 2px;
+    margin-top: 40px;
 }
