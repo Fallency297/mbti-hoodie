@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Payment | Identity Quadrant</title>
+</head>
+<body>
+    <div class="main-container">
+        <div class="content-area">
+            <div class="order-box">
+                <h1>ยืนยันการสั่งซื้อ</h1>
+                <p>กลุ่มที่คุณเลือกคือ: <strong id="displayQuadrant">กำลังโหลด...</strong></p>
+                
+                <button class="btn-reserve" onclick="alert('ระบบชำระเงินยังอยู่ระหว่างพัฒนา')">ชำระเงิน</button>
+                <br><br>
+                <a href="preorder.html" style="color: white;">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // รับค่าที่ส่งมาจาก URL
+        const params = new URLSearchParams(window.location.search);
+        const quadrant = params.get('quadrant');
+        
+        // แสดงค่าบนหน้าจอ
+        if (quadrant) {
+            document.getElementById('displayQuadrant').innerText = quadrant;
+        } else {
+            document.getElementById('displayQuadrant').innerText = "ไม่ได้เลือกกลุ่ม";
+        }
+    </script>
+</body>
+</html>
