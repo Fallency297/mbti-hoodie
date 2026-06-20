@@ -17,15 +17,32 @@
         <div class="content-area">
             <div class="order-box">
                 <h1>Reserve Your Quadrant</h1>
-                <div class="house-selector">
-                    <div class="house-btn active">Rationalists</div>
-                    <div class="house-btn">Idealists</div>
-                    <div class="house-btn">Sentinels</div>
-                    <div class="house-btn">Explorers</div>
+                <div class="house-selector" id="houseSelector">
+                    <div class="house-btn active" data-house="Rationalists">Rationalists</div>
+                    <div class="house-btn" data-house="Idealists">Idealists</div>
+                    <div class="house-btn" data-house="Sentinels">Sentinels</div>
+                    <div class="house-btn" data-house="Explorers">Explorers</div>
                 </div>
-                <button class="btn-reserve">จองทันที</button>
+                <button class="btn-reserve" onclick="goToPayment()">จองทันที</button>
             </div>
         </div>
     </div>
+
+    <script>
+        // ระบบเลือกกลุ่ม
+        const btns = document.querySelectorAll('.house-btn');
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // ระบบส่งค่าไปหน้าชำระเงิน
+        function goToPayment() {
+            const selected = document.querySelector('.house-btn.active').innerText;
+            window.location.href = `payment.html?quadrant=${selected}`;
+        }
+    </script>
 </body>
 </html>
