@@ -6,27 +6,38 @@
     <title>Select Your Type | Identity Quadrant</title>
     <style>
         .shirt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .shirt-card { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 15px; padding: 15px; cursor: pointer; text-align: center; }
-        .shirt-card.selected { background: #fff; color: #000; }
-        .shirt-img-placeholder { width: 100%; height: 120px; background: #444; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+        .shirt-card { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 15px; padding: 15px; cursor: pointer; text-align: center; transition: 0.3s; }
+        .shirt-card.selected { background: #fff; color: #000; transform: scale(1.05); }
+        .shirt-img-placeholder { width: 100%; height: 120px; background: #444; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; color: #ccc; }
     </style>
 </head>
 <body>
     <div class="main-container">
-        <nav class="nav-bar"><a href="preorder.html" style="color:white; text-decoration:none;">ย้อนกลับ</a></nav>
+        <nav class="nav-bar">
+            <div class="brand">IDENTITY QUADRANT.</div>
+            <div class="nav-links"><a href="preorder.html" style="color:white; text-decoration:none;">ย้อนกลับ</a></div>
+        </nav>
         <div class="content-area">
             <div class="order-box">
-                <h1 id="quadrantTitle">Your Quadrant</h1>
+                <h1 id="quadrantTitle">YOUR QUADRANT</h1>
                 <p>เลือกลายเสื้อ MBTI ที่คุณต้องการ</p>
+                
                 <div class="shirt-grid" id="shirtOptions"></div>
-                <p id="summaryText">สรุปการสั่งซื้อ: โปรดเลือกแบบเสื้อ</p>
+                
+                <p id="summaryText" style="margin-top: 20px;">สรุปการสั่งซื้อ: โปรดเลือกแบบเสื้อ</p>
                 <button class="btn-reserve" id="payBtn" disabled onclick="alert('ไปที่หน้าชำระเงิน...')">ไปที่หน้าชำระเงิน</button>
             </div>
         </div>
     </div>
 
     <script>
-        const mbtiData = { 'Rationalists': ['ENTP', 'ENTJ', 'INTJ', 'INTP'], 'Idealists': ['ENFJ', 'ENFP', 'INFJ', 'INFP'], 'Sentinels': ['ESTJ', 'ESFJ', 'ISTJ', 'ISFJ'], 'Explorers': ['ESTP', 'ESFP', 'ISTP', 'ISFP'] };
+        const mbtiData = { 
+            'Rationalists': ['ENTP', 'ENTJ', 'INTJ', 'INTP'], 
+            'Idealists': ['ENFJ', 'ENFP', 'INFJ', 'INFP'], 
+            'Sentinels': ['ESTJ', 'ESFJ', 'ISTJ', 'ISFJ'], 
+            'Explorers': ['ESTP', 'ESFP', 'ISTP', 'ISFP'] 
+        };
+        
         const params = new URLSearchParams(window.location.search);
         const quadrant = params.get('quadrant');
         const container = document.getElementById('shirtOptions');
@@ -34,9 +45,14 @@
         mbtiData[quadrant].forEach(type => {
             const card = document.createElement('div');
             card.className = 'shirt-card';
-            // ใส่รูป INTJ ถ้าเป็นประเภท INTJ
-            let img = type === 'INTJ' ? '<img src="image_9355c5.png" style="width:100%; border-radius:10px;">' : `<div class="shirt-img-placeholder">เสื้อ ${type}</div>`;
+            
+            // เช็คชื่อไฟล์รูปภาพ ถ้าเป็น INTJ ให้ดึง intj.png
+            let img = (type === 'INTJ') 
+                ? '<img src="intj.png" style="width:100%; border-radius:10px; display:block;">' 
+                : `<div class="shirt-img-placeholder">เสื้อ ${type}</div>`;
+                
             card.innerHTML = `${img} <strong>${type}</strong>`;
+            
             card.onclick = () => {
                 document.querySelectorAll('.shirt-card').forEach(c => c.classList.remove('selected'));
                 card.classList.add('selected');
