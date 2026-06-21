@@ -5,24 +5,37 @@
     <link rel="stylesheet" href="style.css">
     <title>Select Your Type | Identity Quadrant</title>
     <style>
-        .shirt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .shirt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
         .shirt-card { 
             background: rgba(255, 255, 255, 0.1); 
             border: 1px solid rgba(255, 255, 255, 0.3); 
             border-radius: 15px; 
-            padding: 10px; 
+            padding: 15px; 
             cursor: pointer; 
             text-align: center; 
             transition: 0.3s;
-            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .shirt-card.selected { background: #fff; color: #000; transform: scale(1.05); }
+        
+        /* บังคับขนาดภาพให้เท่ากัน */
+        .img-container {
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         .shirt-img { 
-            width: 100% !important; 
-            max-width: 150px; 
-            height: auto; 
-            display: block; 
-            margin: 0 auto 10px auto;
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* หัวใจสำคัญ: ตัดภาพให้พอดีกรอบ */
         }
     </style>
 </head>
@@ -64,12 +77,13 @@
                 card.className = 'shirt-card';
                 
                 let imgHtml;
+                // ถ้ามีรูป ให้ใช้ img-container ครอบ
                 if (type === 'INTJ') {
-                    imgHtml = `<img src="intj.png" class="shirt-img" alt="INTJ" onerror="this.style.display='none'">`;
+                    imgHtml = `<div class="img-container"><img src="intj.png" class="shirt-img" alt="INTJ"></div>`;
                 } else if (type === 'INTP') {
-                    imgHtml = `<img src="intp.jpg" class="shirt-img" alt="INTP" onerror="this.style.display='none'">`;
+                    imgHtml = `<div class="img-container"><img src="intp.jpg" class="shirt-img" alt="INTP"></div>`;
                 } else {
-                    imgHtml = `<div style="height:100px; display:flex; align-items:center; justify-content:center;">เสื้อ ${type}</div>`;
+                    imgHtml = `<div class="img-container" style="color:#aaa;">${type}</div>`;
                 }
                 
                 card.innerHTML = `${imgHtml} <strong>${type}</strong>`;
