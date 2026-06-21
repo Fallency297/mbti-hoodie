@@ -20,7 +20,6 @@
         }
         .shirt-card.selected { background: #fff; color: #000; transform: scale(1.05); }
         
-        /* บังคับขนาดภาพให้เท่ากัน */
         .img-container {
             width: 150px;
             height: 150px;
@@ -35,7 +34,7 @@
         .shirt-img { 
             width: 100%; 
             height: 100%; 
-            object-fit: cover; /* หัวใจสำคัญ: ตัดภาพให้พอดีกรอบ */
+            object-fit: cover; 
         }
     </style>
 </head>
@@ -77,11 +76,13 @@
                 card.className = 'shirt-card';
                 
                 let imgHtml;
-                // ถ้ามีรูป ให้ใช้ img-container ครอบ
+                // ตรวจสอบเงื่อนไขรูปภาพตามชื่อประเภท
                 if (type === 'INTJ') {
                     imgHtml = `<div class="img-container"><img src="intj.png" class="shirt-img" alt="INTJ"></div>`;
                 } else if (type === 'INTP') {
                     imgHtml = `<div class="img-container"><img src="intp.jpg" class="shirt-img" alt="INTP"></div>`;
+                } else if (type === 'ENTP') {
+                    imgHtml = `<div class="img-container"><img src="entp.jpg" class="shirt-img" alt="ENTP"></div>`;
                 } else {
                     imgHtml = `<div class="img-container" style="color:#aaa;">${type}</div>`;
                 }
