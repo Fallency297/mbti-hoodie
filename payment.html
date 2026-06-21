@@ -5,47 +5,50 @@
     <link rel="stylesheet" href="style.css">
     <title>Select Your Type | Identity Quadrant</title>
     <style>
-        .shirt-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 20px; }
+        /* --- สไตล์เดิมที่คุณกำหนดไว้ --- */
+        .shirt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
         .shirt-card { 
             background: rgba(255, 255, 255, 0.1); 
             border: 1px solid rgba(255, 255, 255, 0.3); 
             border-radius: 15px; 
-            padding: 20px; 
+            padding: 10px; 
+            cursor: pointer; 
             text-align: center; 
-            color: white;
+            transition: 0.3s;
+            min-height: 150px;
         }
-        .shirt-img { max-width: 150px; height: auto; display: block; margin: 0 auto 15px auto; }
-        .desc-text { font-size: 0.9rem; margin: 10px 0; opacity: 0.8; }
-        .order-btn { 
-            display: inline-block; padding: 12px 30px; margin-top: 10px;
-            background-color: white; color: #1e3a8a; text-decoration: none;
-            font-weight: bold; border-radius: 25px; transition: 0.3s;
+        .shirt-card.selected { background: #fff; color: #000; transform: scale(1.05); }
+        /* --- แก้ไขสไตล์รูปภาพให้บังคับแสดงผล และขยายขนาด --- */
+        .shirt-img { 
+            width: 100% !important; 
+            max-width: 150px; /* เพิ่มขนาดสูงสุดจาก 100px เป็น 150px */
+            height: auto; 
+            display: block; 
+            margin: 0 auto 10px auto;
         }
     </style>
 </head>
 <body>
     <div class="main-container">
         <nav class="nav-bar">
-            <div class="nav-links"><a href="preorder.html">ย้อนกลับ</a></div>
+            <div class="nav-links"><a href="preorder.html" style="color:white; text-decoration:none;">ย้อนกลับ</a></div>
         </nav>
         <div class="content-area">
             <div class="order-box">
-                <h1 id="quadrantTitle">เลือกแบบเสื้อของคุณ</h1>
-                <div class="shirt-grid" id="shirtOptions"></div>
+                <h1 id="quadrantTitle">YOUR QUADRANT</h1>
+                <p>เลือกลายเสื้อ MBTI ที่คุณต้องการ</p>
+                
+                <div class="shirt-grid" id="shirtOptions">
+                    </div>
+                
+                <p id="summaryText" style="margin-top: 20px;">สรุปการสั่งซื้อ: โปรดเลือกแบบเสื้อ</p>
+                <button class="btn-reserve" id="payBtn" disabled onclick="alert('ไปที่หน้าชำระเงิน...')">ไปที่หน้าชำระเงิน</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ข้อมูลคำอธิบายเสื้อแต่ละตัว (คุณแก้ข้อความตรงนี้ได้เลย)
-        const mbtiDetails = {
-            'INTJ': { desc: 'The Architect: ผู้มีวิสัยทัศน์ คิดวิเคราะห์อย่างเป็นระบบ', link: 'https://m.me/ใส่IDเฟสบุ๊คของคุณตรงนี้' },
-            'INTP': { desc: 'The Logician: นักคิดผู้ปราดเปรื่อง ชอบความท้าทายใหม่ๆ', link: 'https://m.me/ใส่IDเฟสบุ๊คของคุณตรงนี้' },
-            'ENTJ': { desc: 'The Commander: ผู้นำที่กล้าหาญ มุ่งมั่นและเด็ดขาด', link: 'https://m.me/ใส่IDเฟสบุ๊คของคุณตรงนี้' },
-            'ENTP': { desc: 'The Debater: นักแก้ปัญหาที่เปี่ยมไปด้วยความคิดสร้างสรรค์', link: 'https://m.me/ใส่IDเฟสบุ๊คของคุณตรงนี้' }
-            // เพิ่มตัวอื่นๆ ได้ตามรูปแบบนี้ครับ
-        };
-
+        // --- ข้อมูล MBTI ตามกลุ่ม (Quadrant) ---
         const mbtiData = { 
             'Rationalists': ['ENTP', 'ENTJ', 'INTJ', 'INTP'], 
             'Idealists': ['ENFJ', 'ENFP', 'INFJ', 'INFP'], 
@@ -53,23 +56,54 @@
             'Explorers': ['ESTP', 'ESFP', 'ISTP', 'ISFP'] 
         };
         
+        // --- ดึงค่ากลุ่มจาก URL (e.g., ?quadrant=Rationalists) ---
         const params = new URLSearchParams(window.location.search);
         const quadrant = params.get('quadrant');
         const container = document.getElementById('shirtOptions');
         
-        mbtiData[quadrant].forEach(type => {
-            const detail = mbtiDetails[type] || { desc: 'เสื้อรุ่นพิเศษ MBTI', link: 'https://m.me/ใส่IDเฟสบุ๊คของคุณตรงนี้' };
-            const card = document.createElement('div');
-            card.className = 'shirt-card';
-            
-            card.innerHTML = `
-                ${type === 'INTJ' ? '<img src="intj.png" class="shirt-img">' : ''}
-                <strong>${type}</strong>
-                <p class="desc-text">${detail.desc}</p>
-                <a href="${detail.link}" target="_blank" class="order-btn">สั่งซื้อทาง Messenger</a>
-            `;
-            container.appendChild(card);
-        });
+        // ตรวจสอบว่ามีกลุ่มที่เลือกหรือไม่
+        if (quadrant && mbtiData[quadrant]) {
+            // อัปเดตหัวข้อกลุ่ม
+            document.getElementById('quadrantTitle').innerText = quadrant.toUpperCase();
+
+            // สร้างการ์ดสำหรับแต่ละบุคลิกในกลุ่ม
+            mbtiData[quadrant].forEach(type => {
+                const card = document.createElement('div');
+                card.className = 'shirt-card';
+                
+                // --- [ส่วนที่ปรับปรุง] ตรวจสอบชื่อไฟล์เพื่อแสดงรูปภาพ ---
+                let imgHtml;
+                if (type === 'INTJ') {
+                    // ใช้ไฟล์ intj.png สำหรับ INTJ
+                    imgHtml = `<img src="intj.png" class="shirt-img" alt="${type} Shirt" onerror="this.style.display='none'">`;
+                } else if (type === 'INTP') {
+                    // [เพิ่มใหม่] ใช้ไฟล์ intp.png สำหรับ INTP
+                    imgHtml = `<img src="intp.png" class="shirt-img" alt="${type} Shirt" onerror="this.style.display='none'">`;
+                } else {
+                    // หากไม่มีรูปภาพ ให้แสดงข้อความแทน
+                    imgHtml = `<div style="height:100px; display:flex; align-items:center; justify-content:center; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; margin-bottom: 10px;">เสื้อ ${type}</div>`;
+                }
+                    
+                card.innerHTML = `${imgHtml} <strong>${type}</strong>`;
+                
+                // --- ระบบเลือกเสื้อ ---
+                card.onclick = () => {
+                    // เอาคลาส 'selected' ออกจากการ์ดทั้งหมด
+                    document.querySelectorAll('.shirt-card').forEach(c => c.classList.remove('selected'));
+                    // เพิ่มคลาส 'selected' ให้กับการ์ดที่ถูกคลิก
+                    card.classList.add('selected');
+                    // เปิดใช้งานปุ่มชำระเงิน
+                    document.getElementById('payBtn').disabled = false;
+                    // อัปเดตข้อความสรุป
+                    document.getElementById('summaryText').innerText = "สรุปการสั่งซื้อ: เสื้อลาย " + type;
+                };
+                
+                container.appendChild(card);
+            });
+        } else {
+            // หากไม่พบกลุ่ม ให้แสดงข้อความแจ้งเตือน
+            container.innerHTML = '<p style="color: white; grid-column: span 2;">กรุณาเลือกกลุ่มบุคลิกภาพจากหน้าก่อนหน้า</p>';
+        }
     </script>
 </body>
 </html>
