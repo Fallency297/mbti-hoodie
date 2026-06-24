@@ -51,7 +51,7 @@
                 <div class="shirt-grid" id="shirtOptions"></div>
                 
                 <p id="summaryText" style="margin-top: 20px;">สรุปการสั่งซื้อ: โปรดเลือกแบบเสื้อ</p>
-                <button class="btn-reserve" id="payBtn" disabled onclick="alert('ไปที่หน้าชำระเงิน...')">ไปที่หน้าชำระเงิน</button>
+                <button class="btn-reserve" id="payBtn" disabled onclick="window.open('https://www.facebook.com/netva.jai?locale=th_TH', '_blank')">สั่งซื้อผ่าน Facebook</button>
             </div>
         </div>
     </div>
@@ -76,7 +76,6 @@
                 card.className = 'shirt-card';
                 
                 let imgHtml;
-                // ตรวจสอบเงื่อนไขรูปภาพตามชื่อประเภท
                 if (type === 'INTJ') {
                     imgHtml = `<div class="img-container"><img src="intj.png" class="shirt-img" alt="INTJ"></div>`;
                 } else if (type === 'INTP') {
